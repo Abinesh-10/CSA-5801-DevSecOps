@@ -1,0 +1,154 @@
+#############################################
+# MODULE 5
+# Final Visualization & Dashboard
+#############################################
+
+# Install packages (Run only once)
+install.packages("readr")
+install.packages("dplyr")
+install.packages("ggplot2")
+
+# Load Libraries
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+#############################################
+# Load Dataset
+#############################################
+
+dataset <- read_csv("Modeled_Dataset.csv")
+
+#############################################
+# SUMMARY TABLE
+#############################################
+
+cat("\n=========================================\n")
+cat("      MODULE 5 - FINAL SUMMARY\n")
+cat("=========================================\n")
+
+cat("\nTotal Records :", nrow(dataset))
+cat("\nTotal Variables :", ncol(dataset))
+
+cat("\n\nThreat Distribution\n")
+print(table(dataset$Threat))
+
+cat("\nAttack Type Distribution\n")
+print(table(dataset$AttackType))
+
+cat("\nSeverity Distribution\n")
+print(table(dataset$Severity))
+
+#############################################
+# STATISTICAL OUTPUT
+#############################################
+
+cat("\n=========================================\n")
+cat("   MODULE 5 - STATISTICAL OUTPUT\n")
+cat("=========================================\n")
+
+cat("\nMean CVSS :", mean(dataset$CVSS))
+cat("\nMedian CVSS :", median(dataset$CVSS))
+cat("\nStandard Deviation :", sd(dataset$CVSS))
+cat("\nVariance :", var(dataset$CVSS))
+cat("\nMinimum CVSS :", min(dataset$CVSS))
+cat("\nMaximum CVSS :", max(dataset$CVSS))
+
+cat("\n\nMean Affected Nodes :", mean(dataset$AffectedNodes))
+cat("\nMean Detection Time :", mean(dataset$DetectionTime))
+
+#############################################
+# VISUALIZATION 1
+# Severity Distribution
+#############################################
+
+ggplot(dataset,
+       aes(x=Severity,
+           fill=Severity))+
+  geom_bar()+
+  theme_minimal()+
+  ggtitle("Severity Distribution")
+
+#############################################
+# VISUALIZATION 2
+# Threat Distribution
+#############################################
+
+ggplot(dataset,
+       aes(x=Threat,
+           fill=Threat))+
+  geom_bar()+
+  theme_minimal()+
+  ggtitle("Threat Distribution")
+
+#############################################
+# VISUALIZATION 3
+# Attack Type Distribution
+#############################################
+
+ggplot(dataset,
+       aes(x=AttackType,
+           fill=AttackType))+
+  geom_bar()+
+  theme_minimal()+
+  ggtitle("Attack Type Distribution")
+
+#############################################
+# VISUALIZATION 4
+# CVSS Box Plot
+#############################################
+
+ggplot(dataset,
+       aes(x=Severity,
+           y=CVSS,
+           fill=Severity))+
+  geom_boxplot()+
+  theme_minimal()+
+  ggtitle("CVSS by Severity")
+
+#############################################
+# VISUALIZATION 5
+# Scatter Plot
+#############################################
+
+ggplot(dataset,
+       aes(x=AffectedNodes,
+           y=DetectionTime,
+           color=Severity))+
+  geom_point(size=2)+
+  theme_minimal()+
+  ggtitle("Affected Nodes vs Detection Time")
+
+#############################################
+# VISUALIZATION 6
+# Histogram
+#############################################
+
+ggplot(dataset,
+       aes(x=CVSS))+
+  geom_histogram(bins=20,
+                 fill="pink",
+                 color="white")+
+  theme_minimal()+
+  ggtitle("CVSS Score Distribution")
+
+#############################################
+# VISUALIZATION 7
+# Vulnerability Distribution
+#############################################
+
+ggplot(dataset,
+       aes(x=Vulnerability,
+           fill=Vulnerability))+
+  geom_bar()+
+  theme_minimal()+
+  theme(axis.text.x=element_text(angle=45,hjust=1))+
+  ggtitle("Vulnerability Distribution")
+
+#############################################
+# PROJECT COMPLETED
+#############################################
+
+cat("\n=========================================\n")
+cat(" PROJECT COMPLETED SUCCESSFULLY\n")
+cat("=========================================\n")

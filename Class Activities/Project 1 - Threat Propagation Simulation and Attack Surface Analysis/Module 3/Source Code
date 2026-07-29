@@ -1,0 +1,127 @@
+#############################################
+# MODULE 3
+# Threat Propagation Simulation (ABM)
+#############################################
+
+# Install packages (Only first time)
+install.packages("readr")
+install.packages("dplyr")
+install.packages("ggplot2")
+install.packages("igraph")
+
+# Load libraries
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(igraph)
+
+#############################################
+# Load Modeled Dataset
+#############################################
+
+dataset <- read_csv("Modeled_Dataset.csv")
+
+#############################################
+# Create Agent IDs
+#############################################
+
+dataset$Node <- paste0("Node_", dataset$ID)
+
+#############################################
+# Random Network Connections
+#############################################
+
+set.seed(123)
+
+edges <- data.frame(
+  
+  from = sample(dataset$Node, 2000, replace = TRUE),
+  
+  to = sample(dataset$Node, 2000, replace = TRUE)
+  
+)
+
+#############################################
+# Create Network
+#############################################
+
+network <- graph_from_data_frame(edges, directed = FALSE)
+
+#############################################
+# Initial Infection
+#############################################
+
+V(network)$status <- "Safe"
+
+infected_nodes <- sample(V(network)$name,50)
+
+V(network)$status[V(network)$name %in% infected_nodes] <- "Infected"
+
+#############################################
+# Threat Propagation
+#############################################
+
+for(i in 1:5){
+  
+  current <- V(network)$name[V(network)$status=="Infected"]
+  
+  neighbors_nodes <- unlist(neighborhood(network,1,current))
+  
+  V(network)$status[neighbors_nodes] <- "Infected"
+  
+}
+
+#############################################
+# Final Results
+#############################################
+
+status <- table(V(network)$status)
+
+print(status)
+cat("\n========== STATISTICAL OUTPUT ==========\n")
+
+cat("\nNetwork Density :",
+    edge_density(network))
+
+cat("\nAverage Degree :",
+    mean(degree(network)))
+
+cat("\nMaximum Degree :",
+    max(degree(network)))
+
+cat("\nMinimum Degree :",
+    min(degree(network)))
+
+cat("\nConnected Components :",
+    components(network)$no)
+plot(network,
+     vertex.size = 5,
+     vertex.label = NA,
+     vertex.color = ifelse(V(network)$status=="Infected",
+                           "red",
+                           "green"),
+     
+     main="Threat Propagation Network")
+ggplot(data.frame(Status=V(network)$status),
+       aes(Status))+
+  
+  geom_bar(fill="red")+
+  
+  theme_minimal()+
+  
+  ggtitle("Final Infection Status")
+degree_data <- data.frame(
+  Degree=degree(network)
+)
+
+ggplot(degree_data,
+       aes(Degree))+
+  
+  geom_histogram(
+    bins=20,
+    fill="steelblue",
+    color="white")+
+  
+  theme_minimal()+
+  
+  ggtitle("Node Degree Distribution")

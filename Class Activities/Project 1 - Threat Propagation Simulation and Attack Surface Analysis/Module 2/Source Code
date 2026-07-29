@@ -1,0 +1,118 @@
+#############################################
+# MODULE 2
+# Preprocessing & Modeling (GMM)
+#############################################
+
+# Install packages (Only first time)
+install.packages("mclust")
+install.packages("ggplot2")
+install.packages("dplyr")
+install.packages("readr")
+
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(mclust)
+
+#############################################
+# Load Dataset
+#############################################
+
+dataset <- read_csv("Cleaned_Synthetic_Dataset.csv")
+
+#############################################
+# Select Numerical Features
+#############################################
+
+model_data <- dataset %>%
+  select(CVSS,
+         AffectedNodes,
+         DetectionTime)
+
+#############################################
+# Normalize Data
+#############################################
+
+model_scaled <- scale(model_data)
+
+#############################################
+# Gaussian Mixture Model
+#############################################
+
+gmm_model <- Mclust(model_scaled)
+
+#############################################
+# Cluster Labels
+#############################################
+
+dataset$Cluster <- as.factor(gmm_model$classification)
+
+#############################################
+# Display Results
+#############################################
+
+summary(gmm_model)
+
+table(dataset$Cluster)
+
+#############################################
+# Save Dataset
+#############################################
+
+write.csv(dataset,
+          "Modeled_Dataset.csv",
+          row.names = FALSE)
+cat("\n========== GMM SUMMARY ==========\n")
+
+cat("\nNumber of Clusters :",
+    gmm_model$G)
+
+cat("\nLog Likelihood :",
+    gmm_model$loglik)
+
+cat("\nBIC :",
+    gmm_model$bic)
+
+cat("\nCluster Frequency\n")
+
+print(table(dataset$Cluster))
+ggplot(dataset,
+       aes(CVSS,
+           AffectedNodes,
+           color=Cluster))+
+  
+  geom_point(size=3)+
+  
+  theme_minimal()+
+  
+  ggtitle("Gaussian Mixture Model Clusters")
+ggplot(dataset,
+       aes(x=Cluster,
+           y=CVSS,
+           fill=Cluster))+
+  
+  geom_boxplot()+
+  
+  theme_minimal()+
+  
+  ggtitle("CVSS by Cluster")
+ggplot(dataset,
+       aes(x=Cluster,
+           y=AffectedNodes,
+           fill=Cluster))+
+  
+  geom_boxplot()+
+  
+  theme_minimal()+
+  
+  ggtitle("Affected Nodes by Cluster")
+ggplot(dataset,
+       aes(x=Cluster,
+           y=DetectionTime,
+           fill=Cluster))+
+  
+  geom_boxplot()+
+  
+  theme_minimal()+
+  
+  ggtitle("Detection Time by Cluster")

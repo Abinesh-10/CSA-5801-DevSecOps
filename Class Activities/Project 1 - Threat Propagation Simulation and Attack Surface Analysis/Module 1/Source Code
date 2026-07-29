@@ -1,0 +1,144 @@
+#############################################
+# MODULE 1 - Dataset Loading & Preprocessing
+#############################################
+
+# Install packages (Run only once)
+install.packages("readr")
+install.packages("dplyr")
+install.packages("ggplot2")
+
+# Load libraries
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+#############################################
+# Read Dataset
+#############################################
+
+dataset <- read_csv("Synthetic_Cybersecurity_Dataset.csv")
+
+#############################################
+# Display Dataset
+#############################################
+
+head(dataset)
+
+str(dataset)
+
+summary(dataset)
+
+#############################################
+# Dataset Dimensions
+#############################################
+
+cat("\nNumber of Rows :", nrow(dataset))
+cat("\nNumber of Columns :", ncol(dataset))
+
+#############################################
+# Missing Values
+#############################################
+
+cat("\n\nMissing Values\n")
+print(colSums(is.na(dataset)))
+
+#############################################
+# Duplicate Rows
+#############################################
+
+cat("\nDuplicate Rows :", sum(duplicated(dataset)))
+
+#############################################
+# Remove Duplicates
+#############################################
+
+dataset <- distinct(dataset)
+
+#############################################
+# Statistical Analysis
+#############################################
+
+cat("\n\n===== CVSS Statistics =====\n")
+
+cat("Mean :", mean(dataset$CVSS))
+cat("\nMedian :", median(dataset$CVSS))
+cat("\nStandard Deviation :", sd(dataset$CVSS))
+cat("\nMinimum :", min(dataset$CVSS))
+cat("\nMaximum :", max(dataset$CVSS))
+
+#############################################
+# Frequency Tables
+#############################################
+
+cat("\n\n===== Vulnerability =====\n")
+print(table(dataset$Vulnerability))
+
+cat("\n===== Threat =====\n")
+print(table(dataset$Threat))
+
+cat("\n===== Attack Type =====\n")
+print(table(dataset$AttackType))
+
+cat("\n===== Severity =====\n")
+print(table(dataset$Severity))
+
+#############################################
+# Save Cleaned Dataset
+#############################################
+
+write.csv(dataset,
+          "Cleaned_Synthetic_Dataset.csv",
+          row.names = FALSE)
+
+#############################################
+# Visualization 1
+#############################################
+
+ggplot(dataset,
+       aes(x = Vulnerability)) +
+  geom_bar(fill = "steelblue") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ggtitle("Vulnerability Distribution")
+
+#############################################
+# Visualization 2
+#############################################
+
+ggplot(dataset,
+       aes(x = Threat)) +
+  geom_bar(fill = "red") +
+  theme_minimal() +
+  ggtitle("Threat Distribution")
+
+#############################################
+# Visualization 3
+#############################################
+
+ggplot(dataset,
+       aes(x = AttackType)) +
+  geom_bar(fill = "darkgreen") +
+  theme_minimal() +
+  ggtitle("Attack Type Distribution")
+
+#############################################
+# Visualization 4
+#############################################
+
+ggplot(dataset,
+       aes(x = Severity)) +
+  geom_bar(fill = "orange") +
+  theme_minimal() +
+  ggtitle("Severity Distribution")
+
+#############################################
+# Visualization 5
+#############################################
+
+ggplot(dataset,
+       aes(x = CVSS)) +
+  geom_histogram(bins = 20,
+                 fill = "purple",
+                 color = "white") +
+  theme_minimal() +
+  ggtitle("CVSS Score Distribution")

@@ -1,0 +1,120 @@
+#############################################
+# MODULE 4
+# Evaluation & Analysis
+#############################################
+
+# Install packages (Run only once)
+install.packages("readr")
+install.packages("dplyr")
+install.packages("ggplot2")
+
+# Load libraries
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+#############################################
+# Load Dataset
+#############################################
+
+dataset <- read_csv("Modeled_Dataset.csv")
+
+#############################################
+# SUMMARY TABLE
+#############################################
+
+cat("\n========================================\n")
+cat("      MODULE 4 - SUMMARY TABLE\n")
+cat("========================================\n")
+
+summary(dataset[,c("CVSS","AffectedNodes","DetectionTime")])
+
+cat("\nNumber of Records :", nrow(dataset))
+cat("\nNumber of Variables :", ncol(dataset))
+
+cat("\n\nThreat Frequency\n")
+print(table(dataset$Threat))
+
+cat("\nAttack Type Frequency\n")
+print(table(dataset$AttackType))
+
+cat("\nSeverity Frequency\n")
+print(table(dataset$Severity))
+
+#############################################
+# STATISTICAL OUTPUT
+#############################################
+
+cat("\n========================================\n")
+cat("    MODULE 4 - STATISTICAL OUTPUT\n")
+cat("========================================\n")
+
+cat("\nMean CVSS :", mean(dataset$CVSS))
+cat("\nMedian CVSS :", median(dataset$CVSS))
+cat("\nStandard Deviation :", sd(dataset$CVSS))
+cat("\nVariance :", var(dataset$CVSS))
+cat("\nMinimum CVSS :", min(dataset$CVSS))
+cat("\nMaximum CVSS :", max(dataset$CVSS))
+
+cat("\n\nMean Affected Nodes :", mean(dataset$AffectedNodes))
+cat("\nMean Detection Time :", mean(dataset$DetectionTime))
+
+cat("\n\nCorrelation (CVSS vs AffectedNodes) : ")
+print(cor(dataset$CVSS, dataset$AffectedNodes))
+
+#############################################
+# VISUALIZATION 1
+#############################################
+
+ggplot(dataset,
+       aes(x = Severity,
+           y = CVSS,
+           fill = Severity)) +
+  geom_boxplot() +
+  theme_minimal() +
+  ggtitle("CVSS by Severity")
+
+#############################################
+# VISUALIZATION 2
+#############################################
+
+ggplot(dataset,
+       aes(x = Threat,
+           fill = Threat)) +
+  geom_bar() +
+  theme_minimal() +
+  ggtitle("Threat Frequency")
+
+#############################################
+# VISUALIZATION 3
+#############################################
+
+ggplot(dataset,
+       aes(x = AttackType,
+           fill = AttackType)) +
+  geom_bar() +
+  theme_minimal() +
+  ggtitle("Attack Type Frequency")
+
+#############################################
+# VISUALIZATION 4
+#############################################
+
+ggplot(dataset,
+       aes(x = AffectedNodes,
+           y = DetectionTime)) +
+  geom_point(color = "blue", size = 2) +
+  theme_minimal() +
+  ggtitle("Affected Nodes vs Detection Time")
+
+#############################################
+# VISUALIZATION 5
+#############################################
+
+ggplot(dataset,
+       aes(x = CVSS)) +
+  geom_histogram(bins = 20,
+                 fill = "purple",
+                 color = "white") +
+  theme_minimal() +
+  ggtitle("CVSS Score Distribution")
