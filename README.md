@@ -1,129 +1,77 @@
-🛡️ Threat Propagation Simulation
+# CSA5801 - DevSecOps
 
-A cybersecurity simulation project that demonstrates how threats propagate across interconnected systems in a network environment. This project helps visualize attack spread patterns, identify vulnerable nodes, and understand the importance of proactive security measures.
+A structured academic repository for **CSA5801: DevSecOps**, containing laboratory programs, coursework, class activities, course-outcome resources, project work, and the capstone project.
 
----
+The repository is maintained as a working record of practical exercises and project deliverables completed as part of the course.
 
-## 📌 Overview
+## Repository Contents
 
-Threat propagation is a critical concept in cybersecurity where malicious entities such as malware, ransomware, worms, or compromised accounts spread through a network. This simulation models the behavior of such threats and provides insights into:
+| Directory | Description |
+| --- | --- |
+| [`Lab Programs`](./Lab%20Programs) | Laboratory experiment files and related submissions. |
+| [`Class Activities`](./Class%20Activities) | Practical exercises, demonstrations, and in-class work. |
+| [`Co's`](./Co's) | Course-outcome-wise academic materials and submissions. |
+| [`Project 1`](./Project%201) | Project work and supporting resources. |
+| [`Capstone Project`](./Capstone%20Project) | Capstone project materials and deliverables. |
 
-- Network vulnerability analysis
-- Attack path visualization
-- Threat spread monitoring
-- Security control effectiveness
-- Incident response planning
+## Course Focus
 
----
+The repository covers practical DevSecOps concepts across the software development lifecycle, with emphasis on integrating security into development and operations practices.
 
-## 🎯 Objectives
+Key areas include:
 
-- Simulate threat movement across network nodes.
-- Analyze the impact of compromised devices.
-- Visualize propagation paths.
-- Evaluate containment strategies.
-- Understand real-world cyber attack scenarios.
+- Secure software development practices
+- Version control and collaborative development
+- Continuous Integration and Continuous Delivery
+- Security testing and vulnerability assessment
+- Automated security checks in development workflows
+- Container and deployment security
+- Risk identification and mitigation
+- Secure release and operational practices
 
----
+## Laboratory Work
 
-## 🏗️ Project Structure
+The [`Lab Programs`](./Lab%20Programs) directory contains the course laboratory experiments. The experiments are organized as individual files so that each exercise can be accessed and reviewed independently.
+
+## Projects
+
+### Project 1
+
+[`Project 1`](./Project%201) contains project-specific implementation and supporting material developed during the course.
+
+### Capstone Project
+
+[`Capstone Project`](./Capstone%20Project) contains the final project work developed to consolidate the concepts studied throughout the course.
+
+## Academic Organization
+
+Course materials are grouped to make the repository easy to navigate and review:
 
 ```text
-Project 1/
-│
-├── src/
-├── data/
-├── output/
-├── assets/
-├── README.md
-└── requirements.txt
+CSA-5801-DevSecOps/
+├── Capstone Project/
+├── Class Activities/
+├── Co's/
+├── Lab Programs/
+├── Project 1/
+└── README.md
 ```
 
----
+## Purpose
 
-## ⚙️ Features
+This repository serves as:
 
-✅ Network topology simulation
+- A record of DevSecOps laboratory work and coursework
+- A reference for practical implementations and experiments
+- A structured archive of project and capstone deliverables
+- Evidence of hands-on work completed as part of CSA5801
 
-✅ Threat propagation modeling
+## Author
 
-✅ Vulnerability assessment
-
-✅ Attack path tracking
-
-✅ Risk analysis
-
-✅ Security awareness demonstration
-
----
-
-## 🔍 Simulation Workflow
-
-1. Create a network topology.
-2. Select the initial compromised node.
-3. Define propagation rules.
-4. Execute the simulation.
-5. Monitor spread across connected systems.
-6. Analyze affected nodes and attack paths.
-7. Generate insights and recommendations.
-
----
-
-## 🛠️ Technologies Used
-
-- Python
-- Network Analysis Concepts
-- Graph-Based Simulation
-- Cybersecurity Principles
-- Data Visualization
-
----
-
-## 🚨 Security Concepts Demonstrated
-
-- Malware Propagation
-- Lateral Movement
-- Network Segmentation
-- Attack Surface Analysis
-- Risk Assessment
-- Incident Response
-
----
-
-## 📊 Expected Outcomes
-
-The simulation helps users:
-
-- Understand cyber attack behavior.
-- Identify critical network weaknesses.
-- Improve security planning.
-- Learn threat containment techniques.
-- Strengthen organizational cyber resilience.
-
----
-
-## 📚 Learning Outcomes
-
-After completing this project, users will be able to:
-
-- Explain threat propagation mechanisms.
-- Analyze attack chains.
-- Assess network security posture.
-- Apply defensive cybersecurity strategies.
-- Interpret simulation results effectively.
-
----
-
-## 👨‍💻 Author
-
-**Abinesh A**
-
-B.Tech Computer Science and Engineering (Cyber Security)
-
+**Abinesh A**  
+B.Tech Computer Science and Engineering (Cyber Security)  
 Saveetha School of Engineering
 
----
+## Note
 
-## 📄 License
-
-This project is developed for educational and academic purposes.
+This repository is intended for academic and educational use as part of the CSA5801 DevSecOps course.
